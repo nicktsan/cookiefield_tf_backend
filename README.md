@@ -1,4 +1,15 @@
-Prerequisites:
+### Prerequisites for Google Cloud Provider:
+- Getting started with Google Cloud Provider and Terraform: https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started
+- Have a Google Cloud Provider account
+- Set up a Google Cloud Provider Project
+- gcloud cli installed and authenticated: https://cloud.google.com/sdk/docs/install
+
+Store state in google cloud: https://dev.to/monarene/utilizing-google-cloud-storage-as-a-remote-backend-for-terraform-3ijk
+
+Authenticate gcloud with the following command:
+gcloud auth application-default login
+
+### Prerequisites for AWS S3:
 - backend in https://github.com/nicktsan/aws_backend/tree/main deployed
 - The Terraform CLI (1.2.0+) installed.
 - The AWS CLI installed.
