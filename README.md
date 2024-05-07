@@ -9,6 +9,39 @@ Store state in google cloud: https://dev.to/monarene/utilizing-google-cloud-stor
 Authenticate gcloud with the following command:
 gcloud auth application-default login
 
+The /backend/google_cloud directory provisions a Google Storage bucket in GCP via terraform for remote state file storage. 
+
+### Steps to deploy Google Cloud storage for remote terraform state file
+
+1. Comment out all the code in /backend/google_cloud/backend.tf
+2. Initialize the configuration with:
+```
+terraform init
+```
+3. Then create a plan with
+```
+terraform plan -var-file input.tfvars -out out.tfplan
+```
+4. Apply the configuration. This should create the Google Storage bucket.
+```
+terraform apply out.tfplan
+```
+5. Once the Storage bucket has been created, uncomment the code in /backend/google_cloud/backend.tf
+6. Rerun 
+```
+terraform init
+```
+7. When prompted to copy the existing state to the new backend, type "yes". There should be a copy of the state file in the Google Storage Bucket.
+
+### Prerequisites for Provisioning Zitadel resources with Terraform
+1. [Create your first Zitadel instance](https://zitadel.com/docs/guides/start/quickstart)
+2. Create a new Zitadel project
+3. [Create a service user with enough authorization to access Zitadel APIs](https://zitadel.com/docs/guides/integrate/zitadel-apis/access-zitadel-apis#1-create-a-service-user) 
+![Create a machine user step 1](/readme_images/zitadel%20create%20machine%20user%201.PNG)
+![Create a machine user step 2](/readme_images/zitadel%20create%20machine%20user%202.PNG)
+4. [generate a private key file for the purposes of authenticating the service user.](https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt#2-generate-a-private-key-file)
+5. [create a JWT and sign with private key for the purposes of authenticating the service user.](https://zitadel.com/docs/guides/integrate/service-users/private-key-jwt#3-create-a-jwt-and-sign-with-private-key).
+
 ### Prerequisites for AWS S3:
 - backend in https://github.com/nicktsan/aws_backend/tree/main deployed
 - The Terraform CLI (1.2.0+) installed.

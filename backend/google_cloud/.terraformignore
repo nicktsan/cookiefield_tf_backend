@@ -3,3 +3,6 @@
 
 # Local git directories
 **/.git/*
+
+# zitadel json key
+zitadel_json_key
