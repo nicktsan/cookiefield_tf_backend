@@ -4,7 +4,7 @@ resource "random_id" "bucket_prefix" {
 
 resource "google_storage_bucket" "cookiedeck_bucket" {
   name          = "${random_id.bucket_prefix.hex}-bucket-tfstate"
-  force_destroy = false
+  force_destroy = true
   location      = var.google_storage_bucket_location
   storage_class = "STANDARD"
   versioning {

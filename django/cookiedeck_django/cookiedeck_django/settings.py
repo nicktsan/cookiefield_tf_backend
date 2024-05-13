@@ -1,7 +1,25 @@
 import environ
+from supertokens_python import get_all_cors_headers
+from typing import List
+from corsheaders.defaults import default_headers
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:4200"
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200"
+]
+
+CORS_ALLOW_HEADERS: List[str] = list(default_headers) + [
+    "Content-Type"
+] + get_all_cors_headers()
+
 """
 Django settings for cookiedeck_django project.
 
@@ -41,9 +59,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'supertokens_python',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'supertokens_python.framework.django.django_middleware.middleware',
 ]
 
 ROOT_URLCONF = 'cookiedeck_django.urls'
